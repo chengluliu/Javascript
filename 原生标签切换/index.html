@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原生标签切换</title>
+    <style>
+        a{clear: both;float: left}
+        .container{float: left;clear:both;border: #333333 solid 1px; width: 100px; height: 100px;}
+        .none{display: none}
+    </style>
+</head>
+<body>
+    
+    <a href="javascript:" onclick="showContainer(0)">标签1</a> &nbsp;<a href="javascript:" onclick="showContainer(1)">标签2</a>
+    <div   class="container">
+        内容1
+    </div>
+    <div   class="container none">
+        内容2
+    </div>
+    <script>
+        
+        function showContainer(domindex){
+            var divtag = document.getElementsByTagName('div');
+            for(var i=0;i<divtag.length;i++){
+                 //console.log(divtag[i].classList)
+                divtag[i].classList.remove("none")
+                divtag[i].classList.add("none");
+            }
+           
+       
+            
+            var condiv = document.getElementsByClassName("container")[domindex]
+            condiv.classList.remove("none")
+        }
+
+    </script>
+</body>
+</html>
