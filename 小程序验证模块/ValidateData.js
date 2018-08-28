@@ -1,18 +1,5 @@
-/**
- *   {form.getFieldDecorator ('project_id', {
-                rules: [{required: true, message: '请选择权限组'}],
-                initialValue: getProject (projects),
-              }) (
 
-   this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'form/submitRegularForm',
-          payload: values,
-        });
-      }
-    });
- */
+//判断手机号规则是否正确 成功为 true, 失败为 false
 const isPoneAvailable = phone => {
   const myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
   if (!myreg.test (phone)) {
@@ -22,6 +9,8 @@ const isPoneAvailable = phone => {
   }
 };
 
+ 
+//验证函数
 const Validate = (formdata, {rules = {}} = {}) => {
   let err = null;
   if (!formdata) {
@@ -30,6 +19,15 @@ const Validate = (formdata, {rules = {}} = {}) => {
       msg: '请填写验证数据',
     };
     return Promise.reject (err);
+     
+  }
+  if(Object.keys(rules).length==0){
+    console.log ('请填写验证规则');
+    err = {
+      msg: '请填写验证规则',
+    };
+    return Promise.reject (err);
+ 
   }
   for (let key in formdata) {
     for (let rulefiled in rules) {
@@ -45,7 +43,8 @@ const Validate = (formdata, {rules = {}} = {}) => {
       }
       //判断是否相等
 
-      //规则验证手机号码
+      /**规则验证手机号码**/
+      //判断是否启用 phone 支持
       if (rules[rulefiled].phone && rules[rulefiled].phone == true) {
         if (isPoneAvailable (formdata[rulefiled]) == false) {
           if (Array.isArray (rules[rulefiled].message)) {
@@ -66,10 +65,7 @@ const Validate = (formdata, {rules = {}} = {}) => {
   return Promise.resolve (formdata);
 };
 
-//test code
-// let tmp = "cc"
-// console.log(isEmpty(tmp))
-//const defaultValidate = (formdata,{rules={},}={})=>{
+//使用例子
 let data = {
   name: '3333',
   phone: 13960997165,
